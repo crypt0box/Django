@@ -1,0 +1,36 @@
+{% extends 'diary/base.html' %}
+
+{% block content %}
+<h1>日記一覧</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>日付</th>
+      <th>#</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for day in day_list %}
+    <tr>
+      <td><a href="{% url 'diary:detail' day.pk %}">{{ day.title }}</a></td>
+      <td>{{ day.date }}</td>
+      <td>
+        {% if user.is_superuser %}
+          <a href="{% url 'admin:diary_day_change' day.pk %}" target="_blank">更新</a>
+      </td>
+        {% endif %}
+      <td>
+        {% if user.is_superuser %}
+          <a href="{% url 'admin:diary_day_delete' day.pk %}" target="_blank">削除</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% include 'diary/page4.html' %}
+
+{% endblock %}
