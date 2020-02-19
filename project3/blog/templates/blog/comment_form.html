@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<form action="" method="POST">
+ {{ form.non_field_errors }}    <!-- ex:pwを２回入力して確認する時pwが合いませんのようなエラーが入る -->
+ {% for field in form %}    <!-- forms.pyの各fieldsを取り出す ex:('name', 'text') -->
+ <div class="form-group">
+  <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+  {{ field }}
+  {{ field.errors }}
+ </div>
+ {% endfor %}
+ {% csrf_token %}
+ <div class="mb-4">
+  <button type="submit" class="btn btn-dark">送信</button>
+ </div>
+</form>
+
+{% endblock %}
