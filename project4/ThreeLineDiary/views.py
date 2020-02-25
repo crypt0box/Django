@@ -11,4 +11,4 @@ class IndexView(generic.ListView):
 class Login(LoginView):
     """ログインページ"""
     form_class = LoginForm
-    template_name = '/login.html'
+    template_name = 'ThreeLineDiary/login.html'
