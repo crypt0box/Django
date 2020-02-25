@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import PermissionsMixin, UserManager
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin, UserManager, AbstractBaseUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -45,7 +45,8 @@ class CustomUserManager(UserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """カスタムユーザーモデル"""
-    username = models.CharField(_('ニックネーム'), max_length=30, blank=False)
+    user_vali = UnicodeUsernameValidator()
+    username = models.CharField(_('username'), max_length=30, unique=True, validators=[user_vali])
 
     is_staff = models.BooleanField(
         _('staff status'),
@@ -65,10 +66,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
     def __str__(self):
         return self.username
-

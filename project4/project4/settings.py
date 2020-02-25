@@ -120,6 +120,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# カスタムユーザーを使う
+AUTH_USER_MODEL = 'ThreeLineDiary.User'
+
 # ログインページと、直接ログインページへ行った後のリダイレクトページ
 LOGIN_URL = 'ThreeLineDiary:login'
 LOGIN_REDIRECT_URL = 'ThreeLineDiary:'

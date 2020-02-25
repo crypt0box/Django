@@ -1,4 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class LoginForm(AuthenticationForm):
@@ -16,7 +19,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('username',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
