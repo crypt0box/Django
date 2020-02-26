@@ -43,8 +43,6 @@ class UserCreateComplete(generic.TemplateView):
     """ユーザー本登録"""
     template_name = 'ThreeLineDiary/user_create_complete.html'
 
-    def get(self, request, **kwargs):
-        user = User.objects.get(pk=user_pk)
 
 
 
