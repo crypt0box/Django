@@ -1,8 +1,13 @@
 from django.views import generic
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from .models import Post
 from .forms import LoginForm, UserCreateForm
+
+
+User = get_user_model()
 
 
 class IndexView(generic.ListView):
@@ -29,7 +34,7 @@ class UserCreate(generic.CreateView):
         # 仮登録と本登録の切り替えは、is_active属性を使うと簡単です。
         # 退会処理も、is_activeをFalseにするだけにしておくと捗ります。
         user = form.save(commit=False)
-        user.is_active = False
+        user.is_active = True
         user.save()
         return redirect('ThreeLineDiary:user_create_complete')
 
@@ -37,4 +42,10 @@ class UserCreate(generic.CreateView):
 class UserCreateComplete(generic.TemplateView):
     """ユーザー本登録"""
     template_name = 'ThreeLineDiary/user_create_complete.html'
+
+    def get(self, request, **kwargs):
+        user = User.objects.get(pk=user_pk)
+
+
+
 
