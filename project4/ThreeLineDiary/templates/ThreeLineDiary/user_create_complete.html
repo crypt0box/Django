@@ -1,0 +1,8 @@
+{% extends "ThreeLineDiary/base.html" %}
+{% block content %}
+<p>
+    本登録が完了しました。<br>
+    登録されたユーザー名とパスワードでログインしてください。<br>
+    <a class="btn btn-primary btn-lg" href="{% url 'ThreeLineDiary:login' %}">ログイン</a>
+</p>
+{% endblock %}

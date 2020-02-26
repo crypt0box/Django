@@ -1,5 +1,6 @@
 from django.views import generic
 from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect
 from .models import Post
 from .forms import LoginForm, UserCreateForm
 
@@ -30,3 +31,10 @@ class UserCreate(generic.CreateView):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
+        return redirect('ThreeLineDiary:user_create_complete')
+
+
+class UserCreateComplete(generic.TemplateView):
+    """ユーザー本登録"""
+    template_name = 'ThreeLineDiary/user_create_complete.html'
+
