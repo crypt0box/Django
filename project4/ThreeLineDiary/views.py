@@ -1,6 +1,5 @@
 from django.views import generic
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from .models import Post
