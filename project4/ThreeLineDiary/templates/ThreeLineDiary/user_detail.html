@@ -1,10 +1,17 @@
 {% extends "ThreeLineDiary/base.html" %}
 {% block content %}
-<div class="row">
-    <!-- 左側、ログインエリア -->
-    <div class="card col-md-6">
-        <div class="card-body">
-            <form action="{% url 'register:login' %}" method="POST">
+<!-- 左側、ログインエリア -->
+<div class="container">
+    <div class="row justify-content-center mb-3 mt-3">
+        <div class="card img-thumbnail" style="width: 15rem; height: 15rem;">
+            <img class="card-img-top" src="/media/images/cryptobox_rakuten_resize.png" width="318" height="180" alt="Card image">
+            <div class="card-body px-2 py-3">
+                <h5 class="card-title">{{ user.username }}</h5>
+            </div>
+        </div>
+        <!-- 左側、ログインエリアおわり -->
+        <div class="card card-body" style="max-width: 30rem; height: 15rem;">
+            <form action="{% url 'ThreeLineDiary:login' %}" method="POST">
                 {{ form.non_field_errors }}
                 {% for field in form %}
                     {{ field }}
@@ -16,14 +23,6 @@
                 {% csrf_token %}
             </form>
         </div>
-    </div><!-- 左側、ログインエリアおわり -->
-
-    <!-- 右側、会員登録エリア -->
-    <div class="card col-md-6">
-        <div class="card-body">
-            <a href="{% url 'register:user_create' %}" class="btn btn-success btn-lg btn-block" >会員登録</a><hr>
-            <a href="{% url 'register:password_reset' %}" class="btn btn-success btn-lg btn-block" >パスワードを忘れた方</a>
-        </div>
-    </div><!-- 右側、会員登録エリアおわり -->
+    </div>
 </div>
 {% endblock %}
