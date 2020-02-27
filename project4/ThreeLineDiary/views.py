@@ -1,5 +1,6 @@
 from django.views import generic
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from .models import Post
@@ -21,7 +22,7 @@ class Login(LoginView):
 
 class Logout(LogoutView):
     """ログアウトページ"""
-    template_name = 'register/'
+    template_name = 'ThreeLineDiary/home.html'
 
 
 class UserCreate(generic.CreateView):
@@ -43,6 +44,19 @@ class UserCreateComplete(generic.TemplateView):
     template_name = 'ThreeLineDiary/user_create_complete.html'
 
 
+class OnlyYouMixin(UserPassesTestMixin):
+    """本人か、スーパーユーザーだけユーザーページアクセスを許可する"""
+    raise_exception = True
+
+    def test_func(self):
+        user = self.request.user
+        return user.pk == self.kwargs['pk'] or user.is_superuser
+
+
+class UserDetail(OnlyYouMixin, generic.DetailView):
+    """ユーザーの詳細ページ"""
+    model = User
+    template_name = 'ThreeLineDiary/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
 
 
 
