@@ -126,3 +126,7 @@ AUTH_USER_MODEL = 'ThreeLineDiary.User'
 # ログインページと、直接ログインページへ行った後のリダイレクトページ
 LOGIN_URL = 'ThreeLineDiary:home'
 LOGIN_REDIRECT_URL = 'ThreeLineDiary:home'
+
+# 画像保存パス
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
