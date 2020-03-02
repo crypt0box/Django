@@ -67,11 +67,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Post(models.Model):
     """日記"""
 
+    release = ((True, '公開'), (False, '非公開'))
+
     line_one = models.CharField('1つ目', max_length=100)
     line_two = models.CharField('2つ目', max_length=100)
     line_three = models.CharField('3つ目', max_length=100)
     created_at = models.DateTimeField('作成日', default=timezone.now)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField('日記の公開', default=False, choices=release)
     user = models.ForeignKey(
         User, verbose_name='ユーザー', on_delete=models.PROTECT,
     )

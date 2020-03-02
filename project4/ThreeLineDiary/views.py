@@ -69,7 +69,7 @@ class PostCreate(generic.CreateView):
         post = form.save(commit=False)   # commit=False: データを保存する一歩手前のモデルインスタンスを返す/まだコメントは保存されていない
         post.user = get_object_or_404(User, pk=user_pk)
         post.save()  # ここでDBに保存
-        return redirect('ThreeLineDiary/user_detail', pk=user_pk)
+        return redirect('ThreeLineDiary:user_detail', pk=user_pk)
 
 
 
