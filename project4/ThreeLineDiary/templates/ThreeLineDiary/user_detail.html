@@ -7,22 +7,10 @@
             <img class="card-img-top" src="/media/images/cryptobox_rakuten_resize.png" width="318" height="180" alt="Card image">
             <div class="card-body px-2 py-3">
                 <h5 class="card-title">{{ user.username }}</h5>
+                <a class="btn btn-primary" href="{% url 'ThreeLineDiary:post_create' user.pk %}" role="button">リンク</a>
             </div>
         </div>
         <!-- 左側、ログインエリアおわり -->
-        <div class="card card-body" style="max-width: 30rem; height: 15rem;">
-            <form action="{% url 'ThreeLineDiary:login' %}" method="POST">
-                {{ form.non_field_errors }}
-                {% for field in form %}
-                    {{ field }}
-                    {{ field.errors }}
-                    <hr>
-                {% endfor %}
-                <button type="submit" class="btn btn-success btn-lg btn-block" >ログイン</button>
-                <input type="hidden" name="next" value="{{ next }}" />
-                {% csrf_token %}
-            </form>
-        </div>
     </div>
 </div>
 {% endblock %}
