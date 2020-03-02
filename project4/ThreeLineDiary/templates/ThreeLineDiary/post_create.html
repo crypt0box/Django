@@ -1,0 +1,13 @@
+{% extends "ThreeLineDiary/base.html" %}
+{% block content %}
+<div class="card card-body" style="max-width: 30rem; height: 15rem;">
+    <form action="" method="POST">
+        <tbody>
+            <tr>１つめ</tr>
+            <td>{{ form.line_one }}</td>
+        </tbody>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">送信</button>
+    </form>
+</div>
+{% endblock %}

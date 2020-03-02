@@ -2,9 +2,9 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from .models import Post
-from .forms import LoginForm, UserCreateForm
+from .forms import LoginForm, UserCreateForm, PostCreateForm
 
 
 User = get_user_model()
@@ -57,6 +57,19 @@ class UserDetail(OnlyYouMixin, generic.DetailView):
     """ユーザーの詳細ページ"""
     model = User
     template_name = 'ThreeLineDiary/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
+
+
+class PostCreate(generic.CreateView):
+    """日記投稿"""
+    template_name = 'ThreeLineDiary/post_create.html'
+    form_class = PostCreateForm
+
+    def form_valid(self, form):
+        user_pk = self.kwargs['user_pk']    # urlに含まれているプライマリキーの取得
+        post = form.save(commit=False)   # commit=False: データを保存する一歩手前のモデルインスタンスを返す/まだコメントは保存されていない
+        post.user = get_object_or_404(User, pk=user_pk)
+        post.save()  # ここでDBに保存
+        return redirect('ThreeLineDiary/user_detail', pk=user_pk)
 
 
 
