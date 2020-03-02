@@ -55,8 +55,13 @@ class OnlyYouMixin(UserPassesTestMixin):
 
 class UserDetail(OnlyYouMixin, generic.DetailView):
     """ユーザーの詳細ページ"""
-    model = User
+    model = Post
     template_name = 'ThreeLineDiary/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_list"] = Post.objects.all()
+        return context
 
 
 class PostCreate(generic.CreateView):
