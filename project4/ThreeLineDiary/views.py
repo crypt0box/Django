@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -12,6 +13,15 @@ User = get_user_model()
 
 class IndexView(generic.ListView):
     model = Post
+
+    def get_queryset(self):
+        queryset = Post.objects.order_by('-created_at') # 昇順の場合-を付けない
+        keyword = self.request.GET.get('keyword')
+        if keyword:
+            queryset = queryset.filter(
+                Q(title__icontains=keyword) | Q(text__icontains=keyword)
+            )
+        return queryset
 
 
 class Login(LoginView):
@@ -53,7 +63,7 @@ class OnlyYouMixin(UserPassesTestMixin):
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
 
-class UserDetail(OnlyYouMixin, generic.DetailView):
+class UserDetail(OnlyYouMixin, generic.ListView):
     """ユーザーの詳細ページ"""
     model = Post
     template_name = 'ThreeLineDiary/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
@@ -62,6 +72,7 @@ class UserDetail(OnlyYouMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["post_list"] = Post.objects.all()
         return context
+
 
 
 class PostCreate(generic.CreateView):
