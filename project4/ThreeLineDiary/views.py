@@ -74,7 +74,6 @@ class UserDetail(OnlyYouMixin, generic.ListView):
         return context
 
 
-
 class PostCreate(generic.CreateView):
     """日記投稿"""
     template_name = 'ThreeLineDiary/post_create.html'
