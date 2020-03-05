@@ -11,4 +11,5 @@ urlpatterns = [
     path('user_create_complete/', views.UserCreateComplete.as_view(), name='user_create_complete'),
     path('user_detail/<int:pk>/', views.UserDetail.as_view(), name='user_detail'),
     path('post_create/<int:user_pk>/', views.PostCreate.as_view(), name='post_create'),
+    path('thumbnail_update/<int:pk>/', views.ThumbnailUpdate.as_view(), name='thumbnail_update'),
 ]

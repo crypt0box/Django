@@ -6,11 +6,13 @@
         <!-- 左側、ユーザーエリア -->
         <div class="col-md-3">
             <div class="card img-thumbnail bg-light mb-3 mt-3" style="width: 15rem;">
-                <img class="card-img-top" src="/media/images/cryptobox_rakuten_resize.png" width="318" height="180" alt="Card image">
+                {% if user.image %}
+                <img class="card-img-top" src="/{{ user.image.url }}" width="318" height="180" alt="Card image">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ user.username }}</h5>
-                    <a class="btn btn-outline-primary btn-sm btn-block" href="{% url 'ThreeLineDiary:post_create' user.pk %}" role="button">投稿</a>
-                    <a class="btn btn-outline-primary btn-sm btn-block" href="#" role="button">編集</a>
+                    <a class="btn btn-outline-primary btn-sm btn-block" href="{% url 'ThreeLineDiary:post_create' user.pk %}" role="button">日記を書く</a>
+                    <a class="btn btn-outline-primary btn-sm btn-block" href="{% url 'ThreeLineDiary:thumbnail_update' user.pk %}" role="button">サムネイルの編集</a>
                 </div>
             </div>
         </div>

@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """カスタムユーザーモデル"""
     user_vali = UnicodeUsernameValidator()
     username = models.CharField(_('username'), max_length=30, unique=True, validators=[user_vali])
+    image = models.ImageField(_('thumbnail'), upload_to='images', blank=True, null=True)
 
     is_staff = models.BooleanField(
         _('staff status'),

@@ -3,6 +3,7 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse
 from django.shortcuts import redirect, get_object_or_404
 from .models import Post
 from .forms import LoginForm, UserCreateForm, PostCreateForm
@@ -81,10 +82,21 @@ class PostCreate(generic.CreateView):
 
     def form_valid(self, form):
         user_pk = self.kwargs['user_pk']    # urlに含まれているプライマリキーの取得
-        post = form.save(commit=False)   # commit=False: データを保存する一歩手前のモデルインスタンスを返す/まだコメントは保存されていない
+        post = form.save(commit=False)   # commit=False: データを保存する一歩手前のモデルインスタンスを返す
         post.user = get_object_or_404(User, pk=user_pk)
         post.save()  # ここでDBに保存
         return redirect('ThreeLineDiary:user_detail', pk=user_pk)
+
+
+class ThumbnailUpdate(generic.UpdateView):
+    """サムネイル投稿"""
+    model = User
+    fields = ('image',)
+    template_name = 'ThreeLineDiary/thumbnail_update.html'
+
+    def get_success_url(self):
+        return reverse('ThreeLineDiary:user_detail', kwargs={'pk': self.object.pk})
+
 
 
 
