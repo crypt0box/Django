@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from .models import Post
 from .forms import LoginForm, UserCreateForm, PostCreateForm
