@@ -19,16 +19,14 @@
         <!-- 左側、ユーザーエリアおわり -->
         <!--右側、日記エリア-->
         <div class="col-md-9">
-            <div class="row">
                  {% for post in user.post_set.all reversed %}
-                     <div class="card bg-light mb-3 mt-3 mx-3" style="width: 15rem;">
+                     <div class="card bg-light mb-3 mt-3 mx-3" style="max-width: 50rem;">
                          <div class="card-body bg-light">
                             <p class="card-text">・{{ post.line_one }}<br>・{{ post.line_two }}<br>・{{ post.line_three }}</p>
                          </div>
                       <div class="card-footer bg-white">{{ post.created_at }}</div>
                      </div>
                  {% endfor %}
-            </div>
         </div>
         <!-- 左側、日記エリアおわり -->
     </div>
