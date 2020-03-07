@@ -28,6 +28,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'ThreeLineDiary:user_detail' user.pk %}">MyPage</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'ThreeLineDiary:post_create' user.pk %}">Post</a>
+          </li>
           {% endif %}
         </ul>
 
