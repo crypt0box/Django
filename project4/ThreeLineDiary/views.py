@@ -98,5 +98,10 @@ class ThumbnailUpdate(generic.UpdateView):
         return reverse('ThreeLineDiary:user_detail', kwargs={'pk': self.object.pk})
 
 
+class About(generic.TemplateView):
+    """ユーザー本登録"""
+    template_name = 'ThreeLineDiary/about.html'
+
+
 
 
